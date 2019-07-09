@@ -1,0 +1,141 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "",
+  "projects": {
+    "ts-imports-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/workspace:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/ts-imports-demo",
+      "sourceRoot": "apps/ts-imports-demo/src",
+      "prefix": "ts-imports-demo",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/ts-imports-demo",
+            "index": "apps/ts-imports-demo/src/index.html",
+            "main": "apps/ts-imports-demo/src/main.ts",
+            "polyfills": "apps/ts-imports-demo/src/polyfills.ts",
+            "tsConfig": "apps/ts-imports-demo/tsconfig.app.json",
+            "assets": [
+              "apps/ts-imports-demo/src/favicon.ico",
+              "apps/ts-imports-demo/src/assets"
+            ],
+            "styles": ["apps/ts-imports-demo/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/ts-imports-demo/src/environments/environment.ts",
+                  "with": "apps/ts-imports-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ts-imports-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ts-imports-demo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ts-imports-demo:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/ts-imports-demo/tsconfig.app.json",
+              "apps/ts-imports-demo/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/ts-imports-demo/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/ts-imports-demo/jest.config.js",
+            "tsConfig": "apps/ts-imports-demo/tsconfig.spec.json",
+            "setupFile": "apps/ts-imports-demo/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "ts-imports-demo-e2e": {
+      "root": "apps/ts-imports-demo-e2e",
+      "sourceRoot": "apps/ts-imports-demo-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/ts-imports-demo-e2e/cypress.json",
+            "tsConfig": "apps/ts-imports-demo-e2e/tsconfig.e2e.json",
+            "devServerTarget": "ts-imports-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ts-imports-demo:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/ts-imports-demo-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**", "!apps/ts-imports-demo-e2e/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
+    },
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "ts-imports-demo"
+}

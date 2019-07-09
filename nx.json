@@ -1,0 +1,18 @@
+{
+  "npmScope": "ts-imports-demo",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "ts-imports-demo-e2e": {
+      "tags": []
+    },
+    "ts-imports-demo": {
+      "tags": []
+    }
+  }
+}
